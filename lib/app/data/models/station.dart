@@ -5,8 +5,8 @@ class Station {
   final String name;
   final String line;
   final Color color;
-  final double distance; // เพิ่มระยะทางจากสถานีแรก
-  final bool isTransfer; // เพิ่มสถานะว่าเป็นสถานีเปลี่ยนสายหรือไม่
+  final double distance;
+  final bool isTransfer;
 
   Station({
     required this.id,

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import 'route_map_view.dart';
-import '../../../data/models/station.dart';
-import 'package:bkk_transit/app/themes/app_theme.dart';
+import 'package:bkk_transit/app/data/models/station.dart';
 
 class HomeView extends GetView<HomeController> {
   @override

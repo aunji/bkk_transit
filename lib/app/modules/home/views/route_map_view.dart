@@ -1,8 +1,8 @@
 import 'package:bkk_transit/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../data/models/route.dart';
-import '../../../data/models/station.dart';
+import 'package:bkk_transit/app/data/models/route.dart';
+import 'package:bkk_transit/app/data/models/station.dart';
 
 class RouteMapView extends GetView<HomeController> {
   final TransitRoute route;
@@ -38,10 +38,6 @@ class RouteMapPainter extends CustomPainter {
     final paint = Paint()..strokeWidth = 2;
 
     final stationPaint = Paint()..style = PaintingStyle.fill;
-
-    final textPainter = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
 
     final stationPositions = _calculateStationPositions(size);
 

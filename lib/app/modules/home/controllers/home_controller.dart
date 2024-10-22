@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../data/models/station.dart';
-import '../../../data/models/route.dart';
-import '../../../data/providers/api_provider.dart';
-import 'package:bkk_transit/app/themes/app_theme.dart';
+import 'package:bkk_transit/app/data/models/station.dart';
+import 'package:bkk_transit/app/data/models/route.dart';
+import 'package:bkk_transit/app/data/providers/api_provider.dart';
 
 class HomeController extends GetxController {
   final ApiProvider apiProvider = Get.find<ApiProvider>();
@@ -49,10 +48,9 @@ class HomeController extends GetxController {
           selectedStartStation.value!.id,
           selectedEndStation.value!.id,
         );
-        // ถ้าสำเร็จ อาจจะแสดงข้อความแจ้งเตือน
+
         Get.snackbar('สำเร็จ', 'ค้นหาเส้นทางเรียบร้อยแล้ว', colorText: Colors.white, backgroundColor: Colors.green, snackPosition: SnackPosition.BOTTOM);
       } catch (e) {
-        // แสดงรายละเอียดข้อผิดพลาด
         if (kDebugMode) {
           print('Error in searchRoute: $e');
         }
@@ -68,7 +66,7 @@ class HomeController extends GetxController {
   void toggleTheme() {
     isDarkMode.toggle();
     Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
-    update(); // เรียก update เพื่อทริกเกอร์การรีบิวด์ UI
+    update();
   }
 
   Color get textColor => isDarkMode.value ? Colors.white : Colors.black;

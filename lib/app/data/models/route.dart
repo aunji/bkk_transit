@@ -6,7 +6,7 @@ class TransitRoute {
   final List<Station> stations;
   final int totalStations;
   final List<String> lines;
-  final int estimatedTime; // เวลาในนาที
+  final int estimatedTime;
   final bool hasTransfer;
 
   TransitRoute({
