@@ -16,7 +16,7 @@ class ApiProvider extends GetConnect {
     if (useMockData) {
       // ใช้ข้อมูลจำลอง
       await Future.delayed(Duration(seconds: 1)); // จำลองความล่าช้าของเครือข่าย
-      return MockData.getStations(); // เปลี่ยนเป็น getStations ให้ตรงกับชื่อเมธอดใน MockData
+      return MockData.getStations();
     } else {
       // ใช้ API จริง
       final response = await get('/api/stations');

@@ -35,26 +35,31 @@ class MockData {
     };
   }
 
+  // ใช้ Dijkstra เพื่อหาระยะทางที่สั้นที่สุด
   static TransitRoute findBestRoute(String startId, String endId) {
     print('Finding route from $startId to $endId');
-    var stations = getStations();
-    var connections = getConnections();
-    var distances = Map<String, int>.fromIterable(stations.map((s) => s.id), value: (_) => 1000000);
-    var previous = Map<String, String?>();
+    final stations = getStations();
+    final connections = getConnections();
+
+    //เก็บระยะทางจากจุดเริ่มต้นถึงแต่ละสถานี โดยเริ่มต้นให้ทุกสถานีมีระยะทาง 1,000,000 (ค่าสูงมากๆ) ยกเว้นสถานีเริ่มต้นที่มีระยะทาง 0
+    final distances = Map<String, int>.fromIterable(stations.map((s) => s.id), value: (_) => 1000000);
+    final previous = Map<String, String?>();
     distances[startId] = 0;
 
-    var queue = stations.map((s) => s.id).toList();
+    // สร้างคิวสำหรับการจัดลำดับสถานี
+    final queue = stations.map((s) => s.id).toList();
 
+    // ทำการค้นหาระยะทางที่สั้นที่สุด
     while (queue.isNotEmpty) {
       queue.sort((a, b) => (distances[a] ?? 1000000).compareTo(distances[b] ?? 1000000));
-      var current = queue.removeAt(0);
+      final current = queue.removeAt(0);
 
       if (current == endId) break;
 
-      for (var neighbor in connections[current]?.keys ?? []) {
+      for (final neighbor in connections[current]?.keys ?? []) {
         if (neighbor is String) {
           // เพิ่มการตรวจสอบประเภทข้อมูล
-          var alt = (distances[current] ?? 0) + (connections[current]?[neighbor] ?? 0);
+          final alt = (distances[current] ?? 0) + (connections[current]?[neighbor] ?? 0);
           if (alt < (distances[neighbor] ?? 1000000)) {
             distances[neighbor] = alt;
             previous[neighbor] = current;
@@ -63,6 +68,7 @@ class MockData {
       }
     }
 
+    // สร้างเส้นทางจากสถานีสุดท้ายไปยังสถานีเริ่มต้น
     var path = <String>[];
     String? current = endId;
     while (current != null) {
@@ -71,9 +77,10 @@ class MockData {
     }
     path = path.reversed.toList();
 
-    var routeStations = path.map((id) => stations.firstWhere((s) => s.id == id)).toList();
-    var lines = routeStations.map((s) => s.line).toSet().toList();
-    var estimatedTime = distances[endId] ?? 0;
+    // สร้างรายการสถานีในเส้นทาง
+    final routeStations = path.map((id) => stations.firstWhere((s) => s.id == id)).toList();
+    final lines = routeStations.map((s) => s.line).toSet().toList();
+    final estimatedTime = distances[endId] ?? 0;
 
     print('Route found: ${routeStations.map((s) => s.name).join(' -> ')}');
     return TransitRoute(
